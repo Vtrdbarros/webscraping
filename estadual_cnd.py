@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import Select
 from selenium_stealth import stealth
 import pyautogui
 import time
-import ra
+
 from PIL import Image
 import pytesseract
 

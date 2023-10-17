@@ -19,7 +19,7 @@ def emitir_cnd_federal():
     driver.get(url)
     
     # Encontrar o elemento de input para o CNPJ e inserir o valor
-    cnpj_value = "00.412.572/0001-88"
+    cnpj_value = "00412572000188"
     cnpj_input = driver.find_element(By.ID, "NI")
     cnpj_input.send_keys(cnpj_value)
 
