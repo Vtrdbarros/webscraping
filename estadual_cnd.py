@@ -4,9 +4,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from selenium_stealth import stealth
-import pyautogui
+import platform
 import time
-
 from PIL import Image
 import pytesseract
 
@@ -35,26 +34,20 @@ def emitir_cnd_estadual():
     cnpj_input = driver.find_element(By.ID, "nuDocumento")
     cnpj_input.send_keys("00.412.572/0001-88")
 
-    # clicar no botão do reCAPTCHA com o pyautogui
-    location = pyautogui.locateOnScreen('recaptcha.png')
-    if location:
-        center = pyautogui.center(location)
-        pyautogui.click(center)
+    # clicar no botão do reCAPTCHA
+    recaptcha_button = driver.find_element(By.ID, "btnCaptcha")
+    recaptcha_button.click()
 
     # Aguardar até que a imagem do captcha esteja visível
     WebDriverWait(driver, 200).until(EC.visibility_of_element_located((By.ID, "imgCaptcha")))
 
-    # capturar a imagem do captcha
+    # Capturar a imagem do captcha
     captcha = driver.find_element(By.ID, "imgCaptcha")
     captcha.screenshot("captcha.png")
 
-    # usa o pytesseract para ler o texto da imagem
+    # Usar o pytesseract para ler o texto da imagem
     captcha_text = pytesseract.image_to_string(Image.open("captcha.png"))
     print(f"O texto do captcha é: {captcha_text}")
-    
-
-
-
 
     # Por enquanto, apenas manteremos o navegador aberto para visualização
     input("Pressione Enter para fechar o navegador...")
